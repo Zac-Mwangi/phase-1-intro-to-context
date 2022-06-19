@@ -21,7 +21,7 @@ function createEmployeeRecord(array){
     return anArray
   }
 
-  let createTimeInEvent = function(employee, dateStamp){
+  function createTimeInEvent(employee, dateStamp){
     let [date, hour] = dateStamp.split(' ')
 
     employee.timeInEvents.push({
@@ -33,7 +33,7 @@ function createEmployeeRecord(array){
     return employee
 }
 
-let createTimeOutEvent = function(employee, dateStamp){
+function createTimeOutEvent(employee, dateStamp){
     let [date, hour] = dateStamp.split(' ')
 
     employee.timeOutEvents.push({
@@ -45,7 +45,7 @@ let createTimeOutEvent = function(employee, dateStamp){
     return employee
 }
 
-let hoursWorkedOnDate = function(employee, soughtDate){
+function hoursWorkedOnDate (employee, soughtDate){
     let inEvent = employee.timeInEvents.find(function(e){
         return e.date === soughtDate
     })
@@ -57,13 +57,13 @@ let hoursWorkedOnDate = function(employee, soughtDate){
     return (outEvent.hour - inEvent.hour) / 100
 }
 
-let wagesEarnedOnDate = function(employee, dateSought){
+function wagesEarnedOnDate(employee, dateSought){
     let rawWage = hoursWorkedOnDate(employee, dateSought)
         * employee.payPerHour
     return parseFloat(rawWage.toString())
 }
 
-let allWagesFor = function(employee){
+function allWagesFor(employee){
     let eligibleDates = employee.timeInEvents.map(function(e){
         return e.date
     })
@@ -75,13 +75,13 @@ let allWagesFor = function(employee){
     return payable
 }
 
-let findEmployeeByFirstName = function(srcArray, firstName) {
+function findEmployeeByFirstName(srcArray, firstName) {
   return srcArray.find(function(rec){
     return rec.firstName === firstName
   })
 }
 
-let calculatePayroll = function(arrayOfEmployeeRecords){
+function calculatePayroll(arrayOfEmployeeRecords){
     return arrayOfEmployeeRecords.reduce(function(memo, rec){
         return memo + allWagesFor(rec)
     }, 0)
